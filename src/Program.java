@@ -43,7 +43,16 @@ public class Program {
 		//connection.data("type_book", "on");
 		Document docCustomConn = connection.post();
 		//System.out.print(docCustomConn);
-		// parsing data
+		
+		
+		// parsing data;
+		List<Article> articles = parseData(docCustomConn)
+		
+		//save info in file:
+		saveDataInFile(articles);
+	}
+	public static List<Article> parseData(Document docCustomConn)
+	{
 		List<Article> articles = new ArrayList<>();
 		Element table = docCustomConn.getElementById("restab");
 		Elements trs = table.getElementsByTag("tr");
@@ -70,8 +79,11 @@ public class Program {
 			articles.add(newArticle);
 			
 		}
+		return articles;
 		
-		//save info in file:
+	}
+	public static void saveDataInFile(List<Article> articles)
+	{
 		try {
 		      FileWriter file = new FileWriter("result.txt");
 		      
@@ -96,7 +108,6 @@ public class Program {
 	    }
 		System.out.println("Файл успешно создан!");
 	}
-	
 	public static class Article
 	{
 		public String name;
